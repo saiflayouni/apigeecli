@@ -128,13 +128,12 @@ func GenerateAPIProxyBundleFromOAS(name string,
 		}
 	}
 
-	if !skipPolicy {
-		if err = os.MkdirAll(resDirPath, os.ModePerm); err != nil {
-			return err
-		}
-		if err = writeXMLData(resDirPath+string(os.PathSeparator)+fileName, content); err != nil {
-			return err
-		}
+	// always write the spec to the resources directory so it is bundled with the proxy
+	if err = os.MkdirAll(resDirPath, os.ModePerm); err != nil {
+		return err
+	}
+	if err = writeXMLData(resDirPath+string(os.PathSeparator)+fileName, content); err != nil {
+		return err
 	}
 
 	if err = os.Mkdir(policiesDirPath, os.ModePerm); err != nil {

@@ -85,7 +85,7 @@ Create an API Proxy from OAS and deploy the proxy to an environment:
 		if version != "" {
 			re := regexp.MustCompile(`3\.1\.[0-9]`)
 			if re.MatchString(version) {
-				clilog.Warning.Println("OpenAPI 3.1 detected. Skipping policy validation.")
+				clilog.Warning.Println("OpenAPI 3.1 detected. Skipping OAS Validate policy (not supported for 3.1); spec will still be uploaded to the proxy bundle.")
 				skipPolicy = true
 			}
 		}
