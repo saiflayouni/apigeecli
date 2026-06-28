@@ -296,11 +296,11 @@ func GenerateKey(name string, developerID string, apiProducts []string, callback
 	}
 
 	if len(existingApp.Attributes) > 0 {
-		attributes := []string{}
-		for _, attr := range existingApp.Attributes {
-			attributes = append(attributes, "{\"name\":\""+attr.Name+"\",\"value\":\""+attr.Value+"\"}")
+		attrBytes, err := json.Marshal(existingApp.Attributes)
+		if err != nil {
+			return nil, err
 		}
-		key = append(key, "\"attributes\":["+strings.Join(attributes, ",")+"]")
+		key = append(key, "\"attributes\":"+string(attrBytes))
 	}
 
 	payload := "{" + strings.Join(key, ",") + "}"
